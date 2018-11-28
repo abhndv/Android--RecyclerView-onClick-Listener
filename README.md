@@ -1,7 +1,7 @@
 # Android-RecyclerView-onClick-Listener
 A simple way to implement onClickListener in Android RecyclerView and obtain clicked position
 
-First we create a class RecyclerButtonClick for passing value and implements the onclicklistener
+First we create a interface RecyclerButtonClick with the function name which handles the click
 
     public interface RecyclerButtonClick {
         void onItemClick(int position);
