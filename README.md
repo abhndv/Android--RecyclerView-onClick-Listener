@@ -3,37 +3,41 @@ A simple way to implement onClickListener in Android RecyclerView and obtain cli
 
 First we create a class RecyclerButtonClick for passing value and implements the onclicklistener
 
-
-    public class RecyclerButtonClick implements View.OnClickListener {
-        YourFragment yourFragment;
-        public int pos;
-
-        public RecyclerButtonClick(int position){
-            this.pos=position;
-        }
-        @Override
-        public void onClick(View v) {
-            yourFragment=new YourFragment();
-            yourFragment.recyclerButtonClicked(pos);
-        }
+    public interface RecyclerButtonClick {
+        void onItemClick(int position);
     }
 
-Now that is set we can write what to do in your Fragment java file function.
-It is then called by creating and instance of the Fragment.
+Then in the adapter file write function to pass click position to interface
 
-    public void recyclerButtonClicked(int position) {
-        ...
-        //position will have the index value of the rows in RecyclerView.
-        ...
+    private RecyclerButtonClick click_position;
+    ...
+    
+    ...
+    public void setOnClick(RecyclerButtonClick recyclerButtonClick)
+    {
+        this.click_position=recyclerButtonClick;
     }
 
-Now we need to call the RecyclerButtonClick class in setOnClickListener
-We give that in the onBindViewHolder()
+
+Now bind the adapter in the fragment and write the function to implement what to do
+
+    public class FRAGMENT_NAME extends Fragment implements RecyclerButtonClick{
+    
+    .....
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        //init mAdapter
         ...
-        holder.YOUR_BUTTON.setOnClickListener(new RecyclerButtonClick(position));
+        mAdapter.setOnClick(FRAGMENT_NAME.this);
         ...
+    }
+    ...
+    public void onItemClick(int position) {
+        //WHAT TO DO ON CLICK
+        Log.d("rvclick+position);  //writes position to the log
+    }
+    
+    ....
     }
     
 In this YOUR_BUTTON should be the name of the thing in RecyclerView which you clicks
