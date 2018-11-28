@@ -7,11 +7,22 @@ First we create a interface RecyclerButtonClick with the function name which han
         void onItemClick(int position);
     }
 
-Then in the adapter file write function to pass click position to interface
+Then in the adapter file write function to pass click position to interface and set the onclicklistener to the item you click
 
     private RecyclerButtonClick click_position;
     ...
-    
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        //init mAdapter
+        ...
+        mAdapter.setOnClick(FRAGMENT_NAME.this);
+        ...
+        holder.ITEM_NAME.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click_position.onItemClick(position);
+            }
+        }); 
+    }
     ...
     public void setOnClick(RecyclerButtonClick recyclerButtonClick)
     {
@@ -22,15 +33,7 @@ Then in the adapter file write function to pass click position to interface
 Now bind the adapter in the fragment and write the function to implement what to do
 
     public class FRAGMENT_NAME extends Fragment implements RecyclerButtonClick{
-    
-    .....
-
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        //init mAdapter
-        ...
-        mAdapter.setOnClick(FRAGMENT_NAME.this);
-        ...
-    }
+  
     ...
     public void onItemClick(int position) {
         //WHAT TO DO ON CLICK
