@@ -34,7 +34,7 @@ Now bind the adapter in the fragment and write the function to implement what to
     ...
     public void onItemClick(int position) {
         //WHAT TO DO ON CLICK
-        Log.d("rvclick+position);  //writes position to the log
+        Log.d("tag_name",rvclick+position);  //writes position to the log
     }
     
     ....
